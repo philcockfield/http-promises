@@ -18,6 +18,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
   });
 
 
+
   describe('get()', () => {
     describe('response-text', () => {
       it('stores GET state on the Xhr object', () => {
@@ -66,7 +67,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
       it('throws an [HttpError] when status code is not 200', (done) => {
         http.get('/foo')
         .catch(HttpError, (err) => {
-            expect(err.message).to.equal('Failed while making Http request to server.');
+            expect(err.message).to.equal('Failed while making Http request.');
             expect(err.status).to.equal(500);
             done()
         });
@@ -169,7 +170,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
     it('throws an [HttpError] when status code is not 200', (done) => {
       http.post('/foo')
       .catch(HttpError, (err) => {
-          expect(err.message).to.equal('Failed while making Http request to server.');
+          expect(err.message).to.equal('Failed while making Http request.');
           expect(err.status).to.equal(500);
           done()
       });
@@ -230,7 +231,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
     it('throws an [HttpError] when status code is not 200', (done) => {
       http.put('/foo')
       .catch(HttpError, (err) => {
-          expect(err.message).to.equal('Failed while making Http request to server.');
+          expect(err.message).to.equal('Failed while making Http request.');
           expect(err.status).to.equal(500);
           done()
       });
@@ -264,7 +265,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
     it('throws an [HttpError] when status code is not 200', (done) => {
       http.delete('/foo')
       .catch(HttpError, (err) => {
-          expect(err.message).to.equal('Failed while making Http request to server.');
+          expect(err.message).to.equal('Failed while making Http request.');
           expect(err.status).to.equal(500);
           done()
       });

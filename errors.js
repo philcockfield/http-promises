@@ -7,9 +7,9 @@ import _ from 'lodash';
 export class HttpError extends Error {
   constructor(status, message, statusText) {
     super();
-    if (_.isEmpty(message)) { message = 'Failed while making Http request to server.'; }
+    if (_.isEmpty(message)) { message = 'Failed while making Http request.'; }
+    this.status = status || 500;
     this.message = message;
-    this.status = status;
     this.statusText = statusText;
   }
 }
