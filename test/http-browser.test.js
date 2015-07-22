@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { FakeXMLHttpRequest } from 'sinon';
 import http from '../browser';
-const { HttpError, HttpParseError } = http;
+import { HttpError, HttpParseError } from '../src/errors';
 
 
 
@@ -17,6 +17,11 @@ describe('Http (Browser/XmlHttpRequest)', () => {
     };
   });
 
+
+  it('exposes error classes', () => {
+    expect(http.HttpError).to.equal(HttpError);
+    expect(http.HttpParseError).to.equal(HttpParseError);
+  });
 
 
   describe('get()', () => {
@@ -123,7 +128,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
 
   describe('post()', () => {
     it('stores POST state on the Xhr object', () => {
-      http.post('/foo', 123);
+      http.post('/foo', { id:123 });
       expect(fakeXhr.url).to.equal('/foo');
       expect(fakeXhr.method).to.equal('POST');
       expect(fakeXhr.requestHeaders).to.eql({ 'Content-Type': 'application/json;charset=UTF-8' });
@@ -184,7 +189,7 @@ describe('Http (Browser/XmlHttpRequest)', () => {
 
   describe('put()', () => {
     it('stores PUT state on the Xhr object', () => {
-      http.put('/foo', 123);
+      http.put('/foo', { id:123 });
       expect(fakeXhr.url).to.equal('/foo');
       expect(fakeXhr.method).to.equal('PUT');
       expect(fakeXhr.requestHeaders).to.eql({ 'Content-Type': 'application/json;charset=UTF-8' });

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { HttpError, HttpParseError } from '../errors';
+import { HttpError, HttpParseError } from '../src/errors';
 
 
 
