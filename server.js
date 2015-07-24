@@ -1,2 +1,2 @@
-import server from './src/http-server';
-export default server;
+require('babel/register');
+module.exports = require('./src/http-server');

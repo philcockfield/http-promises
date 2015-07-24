@@ -1,2 +1,2 @@
-import browser from './src/http-browser';
-export default browser;
+require('babel/register');
+module.exports = require('./src/http-browser');
