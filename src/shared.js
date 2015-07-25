@@ -11,8 +11,8 @@ import { HttpError, HttpParseError } from "./errors";
  */
 export const isJson = (text) => {
   if (_.isEmpty(text)) { return false; }
-  if (text.startsWith("{") && text.endsWith("}")) { return true; }
-  if (text.startsWith("[") && text.endsWith("]")) { return true; }
+  if (_.startsWith(text, "{") && _.endsWith(text, "}")) { return true; }
+  if (_.startsWith(text, "[") && _.endsWith(text, "]")) { return true; }
   return false;
 };
 

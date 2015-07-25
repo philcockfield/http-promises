@@ -6,7 +6,6 @@ Consistent HTTP request API on both server and browser using promises.
 
 ## Test
     npm test
-    npm run tdd  # (Watch)
 
 
 
