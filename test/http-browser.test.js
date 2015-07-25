@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { FakeXMLHttpRequest } from "sinon";
-import http from "../browser";
+import http from "../src/http-browser";
 import { HttpError, HttpParseError } from "../src/errors";
 
 

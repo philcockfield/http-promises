@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import http from "../server";
+import http from "../src/http-server";
 import nodeHttp from "http";
 import { HttpError, HttpParseError } from "../src/errors";
 import nock from "nock";
