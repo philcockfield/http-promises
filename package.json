@@ -2,7 +2,7 @@
   "name": "http-promises",
   "version": "0.0.3",
   "description": "Consistent HTTP request API on both server and browser using promises.",
-  "main": "./src/server.js",
+  "main": "./lib/server.js",
   "dependencies": {
     "bluebird": "^2.9.34"
   },
@@ -21,7 +21,8 @@
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register",
-    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register --watch"
+    "tdd": "./node_modules/mocha/bin/mocha --recursive --compilers js:babel/register --watch",
+    "prepublish": "gulp build"
   },
   "repository": {
     "type": "git",
