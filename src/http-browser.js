@@ -1,8 +1,8 @@
 /* global XMLHttpRequest */
-import _ from 'lodash';
-import Promise from 'bluebird';
-import { HttpError, HttpParseError } from './errors';
-import { handleRequestComplete } from './shared';
+import _ from "lodash";
+import Promise from "bluebird";
+import { HttpError, HttpParseError } from "./errors";
+import { handleRequestComplete } from "./shared";
 
 
 
@@ -12,7 +12,7 @@ const send = (verb, url, data) => {
       xhr.open(verb, url);
       if (_.isObject(data)) {
         data = JSON.stringify(data);
-        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       }
       xhr.onreadystatechange = () => {
           if (xhr.readyState === 4) {
@@ -44,7 +44,7 @@ const api = {
   * @param url: URL of the resource.
   * @return promise.
   */
-  get(url) { return send('GET', url); },
+  get(url) { return send("GET", url); },
 
 
   /**
@@ -58,7 +58,7 @@ const api = {
   *               will be transformed and sent as JSON).
   * @return promise.
   */
-  post(url, data) { return send('POST', url, data); },
+  post(url, data) { return send("POST", url, data); },
 
 
   /**
@@ -72,7 +72,7 @@ const api = {
   *               will be transformed and sent as JSON).
   * @return promise.
   */
-  put(url, data) { return send('PUT', url, data); },
+  put(url, data) { return send("PUT", url, data); },
 
 
   /**
@@ -84,7 +84,7 @@ const api = {
   * @param url:   URL of the resource.
   * @return promise.
   */
-  delete(url) { return send('DELETE', url); }
+  delete(url) { return send("DELETE", url); }
 };
 
 

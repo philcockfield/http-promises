@@ -1,9 +1,9 @@
-import _ from 'lodash';
-import nodeUrl from 'url';
-import nodeHttp from 'http';
-import Promise from 'bluebird';
-import { HttpError, HttpParseError } from './errors';
-import { handleRequestComplete } from './shared';
+import _ from "lodash";
+import nodeUrl from "url";
+import nodeHttp from "http";
+import Promise from "bluebird";
+import { HttpError, HttpParseError } from "./errors";
+import { handleRequestComplete } from "./shared";
 
 
 const send = (verb, url, data) => {
@@ -13,10 +13,10 @@ const send = (verb, url, data) => {
       let headers = {};
       if (_.isObject(data)) {
         data = JSON.stringify(data);
-        headers['Content-Type'] = 'application/json;charset=UTF-8';
+        headers["Content-Type"] = "application/json;charset=UTF-8";
       }
       if (hasData) {
-        headers['Content-Length'] = data.toString().length;
+        headers["Content-Length"] = data.toString().length;
       }
 
       url = nodeUrl.parse(url);
@@ -37,13 +37,13 @@ const send = (verb, url, data) => {
           if (res.statusCode !== 200) {
             invokeComplete();
           } else {
-            res.setEncoding('utf8');
-            res.on('data', (responseText) => { invokeComplete(responseText) });
+            res.setEncoding("utf8");
+            res.on("data", (responseText) => { invokeComplete(responseText) });
           }
       });
 
       // Listen for error.
-      req.on('error', (err) => { reject(err); });
+      req.on("error", (err) => { reject(err); });
 
       // Initiate the request.
       if (hasData) { req.write(data); }
@@ -64,7 +64,7 @@ const api = {
   * @param url: URL of the resource.
   * @return promise.
   */
-  get(url) { return send('GET', url); },
+  get(url) { return send("GET", url); },
 
   /**
   * Performs a POST operation against the given URL.
@@ -77,7 +77,7 @@ const api = {
   *               will be transformed and sent as JSON).
   * @return promise.
   */
-  post(url, data) { return send('POST', url, data); },
+  post(url, data) { return send("POST", url, data); },
 
 
   /**
@@ -91,7 +91,7 @@ const api = {
   *               will be transformed and sent as JSON).
   * @return promise.
   */
-  put(url, data) { return send('PUT', url, data); },
+  put(url, data) { return send("PUT", url, data); },
 
 
   /**
@@ -103,7 +103,7 @@ const api = {
   * @param url:   URL of the resource.
   * @return promise.
   */
-  delete(url) { return send('DELETE', url); }
+  delete(url) { return send("DELETE", url); }
 };
 
 

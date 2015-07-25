@@ -1,6 +1,6 @@
-import _ from 'lodash';
-import util from 'js-util';
-import { HttpError, HttpParseError } from './errors';
+import _ from "lodash";
+import util from "js-util";
+import { HttpError, HttpParseError } from "./errors";
 
 
 /**
@@ -11,8 +11,8 @@ import { HttpError, HttpParseError } from './errors';
  */
 export const isJson = (text) => {
   if (_.isEmpty(text)) { return false; }
-  if (text.startsWith('{') && text.endsWith('}')) { return true; }
-  if (text.startsWith('[') && text.endsWith(']')) { return true; }
+  if (text.startsWith("{") && text.endsWith("}")) { return true; }
+  if (text.startsWith("[") && text.endsWith("]")) { return true; }
   return false;
 };
 
@@ -24,8 +24,8 @@ export const isJson = (text) => {
  * @param {integer} status: The HTTP status code.
  * @param {string} responseText: The raw text returned within the response.
  * @param {string} statusText: The text describing the status
- * @param {function} resolve: The Promise's success callback.
- * @param {function} reject: The promise's error callback.
+ * @param {function} resolve: The Promise"s success callback.
+ * @param {function} reject: The promise"s error callback.
  */
 export const handleRequestComplete = (status, statusText, responseText, resolve, reject) => {
     if (status !== 200) {
@@ -43,7 +43,7 @@ export const handleRequestComplete = (status, statusText, responseText, resolve,
           return;
         }
 
-      } else if(response === 'true' || response === 'false') {
+      } else if(response === "true" || response === "false") {
         response = util.toBool(response);
 
       } else if(util.isNumeric(response)) {
