@@ -1,5 +1,5 @@
 import _ from "lodash";
-import util from "js-util";
+import * as util from "js-util";
 import { HttpError, HttpParseError } from "./errors";
 
 
