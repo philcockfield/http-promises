@@ -85,7 +85,7 @@ describe("Http (Server)", () => {
 
 
     it("throws an [HttpError] when status code is not 200", (done) => {
-      stubGET("/user", 404);
+      stubGET("/user", 404, "Failed while making Http request.");
       http.get("http://domain.com/user")
       .catch(HttpError, (err) => {
           expect(err.message).to.equal("Failed while making Http request.");
