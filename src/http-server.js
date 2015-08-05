@@ -31,18 +31,15 @@ const send = (verb, url, data) => {
 
       // Setup the request.
       let req = nodeHttp.request(options, (res) =>  {
-          const invokeComplete = (responseText) => {
-            handleRequestComplete(res.statusCode, res.statusMessage, responseText, resolve, reject);
-          };
-          if (res.statusCode !== 200) {
-            invokeComplete();
-          } else {
-            res.setEncoding("utf8");
-            res.on("data", (responseText) => { invokeComplete(responseText) });
-          }
+          res.setEncoding("utf8");
+          res.on("data", (responseText) => {
+              handleRequestComplete(res.statusCode, res.statusMessage, responseText, resolve, reject);
+            });
       });
 
-      // Listen for error.
+      // Listen transport for error.
+      // NB: This is not an expected status-code error, but rather
+      //     an error with the HTTP connection.
       req.on("error", (err) => { reject(err); });
 
       // Initiate the request.
