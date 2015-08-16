@@ -3,6 +3,42 @@ Consistent HTTP request API on both server and browser using promises.
 
 [![Build Status](https://travis-ci.org/philcockfield/http-promises.svg)](https://travis-ci.org/philcockfield/http-promises)
 
+## API
+
+- `http.get(url)`
+- `http.post(url, { payload })`
+- `http.put(url, { payload })`
+- `http.delete(url)`
+
+
+## Usage
+On the server:
+
+```js
+import http from "http-promises/server";
+
+let URL = "http://domain.com/foo";
+http.get(URL)
+  .then((result) => { ... })
+  .catch((err) => { throw err; });
+
+http.put(URL, { foo: 123 })
+  .then((result) => { ... })
+  .catch((err) => { throw err; });
+
+```
+
+Using it within the browser is exactly the same as the server, just require `"http-promises/browser"`
+
+```js
+import http from "http-promises/browser";
+
+http.get("/foo")
+  .then((result) => { ... })
+  .catch((err) => { throw err; });
+
+```
+
 
 ## Test
     npm test
