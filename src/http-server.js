@@ -1,6 +1,7 @@
 import _ from "lodash";
 import nodeUrl from "url";
 import nodeHttp from "http";
+import nodeHttps from "https";
 import Promise from "bluebird";
 import { HttpError, HttpParseError } from "./errors";
 import { handleRequestComplete } from "./shared";
@@ -22,7 +23,7 @@ const send = (verb, url, data) => {
       url = nodeUrl.parse(url);
       let options = {
         hostname: url.hostname,
-        port: url.port || 80,
+        port: url.port,
         path: url.path,
         method: verb,
         headers: headers,
@@ -30,7 +31,8 @@ const send = (verb, url, data) => {
       };
 
       // Setup the request.
-      let req = nodeHttp.request(options, (res) =>  {
+      const httpLibrary = url.protocol === "https:" ? nodeHttps : nodeHttp;
+      let req = httpLibrary.request(options, (res) =>  {
           res.setEncoding("utf8");
           res.on("data", (responseText) => {
               handleRequestComplete(res.statusCode, res.statusMessage, responseText, resolve, reject);
