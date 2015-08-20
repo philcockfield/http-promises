@@ -33,8 +33,10 @@ const send = (verb, url, data) => {
       // Setup the request.
       const httpLibrary = url.protocol === "https:" ? nodeHttps : nodeHttp;
       let req = httpLibrary.request(options, (res) =>  {
-          res.setEncoding("utf8");
-          res.on("data", (responseText) => {
+            let responseText = "";
+            res.setEncoding("utf8");
+            res.on("data", (data) => { responseText += data; });
+            res.on("end", () => {
               handleRequestComplete(res.statusCode, res.statusMessage, responseText, resolve, reject);
             });
       });
