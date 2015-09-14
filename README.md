@@ -1,7 +1,9 @@
 # http-promises
-Consistent HTTP request API on both server and browser using promises.
 
 [![Build Status](https://travis-ci.org/philcockfield/http-promises.svg)](https://travis-ci.org/philcockfield/http-promises)
+
+Consistent HTTP request API on both server and browser using promises.
+
 
 ## API
 
