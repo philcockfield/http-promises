@@ -42,7 +42,7 @@ http
 
 ```
 
-Adding headers in this way is immutable with each call to `header` returning a fresh API.  To root `http` API is uneffected.
+Adding headers is immutable. Each call to `header` returns a fresh API.  The root `http` API is not effected.
 
 
 
