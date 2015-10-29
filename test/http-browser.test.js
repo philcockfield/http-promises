@@ -47,6 +47,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it.only("resolves promise with `undefined`", (done) => {
         http.get("/foo").then((result) => {
+
             expect(result).to.equal(null);
             done();
         });
