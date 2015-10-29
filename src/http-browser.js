@@ -1,5 +1,5 @@
 /* global XMLHttpRequest */
-import _ from "lodash";
+import R from "ramda";
 import Promise from "bluebird";
 import { HttpError, HttpParseError } from "./errors";
 import { handleRequestComplete } from "./shared";
@@ -10,7 +10,7 @@ const send = (verb, url, data) => {
   return new Promise((resolve, reject) => {
       let xhr = api.createXhr();
       xhr.open(verb, url);
-      if (_.isObject(data)) {
+      if (R.is(Object, data)) {
         data = JSON.stringify(data);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       }
