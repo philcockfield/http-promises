@@ -44,6 +44,8 @@ export const handleRequestComplete = (status, statusText, responseText, resolve,
       // Success.
       let response = responseText;
 
+      console.log("response", response);
+      console.log("");
       console.log("isJson(response)", isJson(response));
 
       if (isJson(response)) {
