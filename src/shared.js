@@ -1,3 +1,4 @@
+import R from "ramda";
 import _ from "lodash";
 import * as util from "js-util";
 import { HttpError, HttpParseError } from "./errors";
@@ -11,9 +12,15 @@ import { HttpError, HttpParseError } from "./errors";
  */
 export const isJson = (text) => {
   if (_.isEmpty(text)) { return false; }
-  if (_.startsWith(text, "{") && _.endsWith(text, "}")) { return true; }
-  if (_.startsWith(text, "[") && _.endsWith(text, "]")) { return true; }
+  // if (text.startsWith("{") && text.endsWith("}")) { return true; }
+  // if (text.startsWith("[") && text.endsWith("]")) { return true; }
+  // return false;
+
+  // if (R.isEmpty(text)) { return false; }
+  if (text.startsWith("{") && text.endsWith("}")) { return true; }
+  if (text.startsWith("[") && text.endsWith("]")) { return true; }
   return false;
+
 };
 
 
@@ -36,6 +43,9 @@ export const handleRequestComplete = (status, statusText, responseText, resolve,
 
       // Success.
       let response = responseText;
+
+      console.log("isJson(response)", isJson(response));
+
       if (isJson(response)) {
         try { response = JSON.parse(response); }
         catch (err) {
