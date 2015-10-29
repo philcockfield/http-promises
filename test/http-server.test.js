@@ -144,6 +144,11 @@ describe("Http (Server)", () => {
         expect(() => http.header(null, "foo")).to.throw();
       });
 
+      it("throws if a header value was not specified", () => {
+        expect(() => http.header("my-key")).to.throw();
+        expect(() => http.header("my-key", null)).to.throw();
+      });
+
       it("adds a header", () => {
         const result = http.header("foo", "my-header");
         expect(result.headers["foo"]).to.eql("my-header");

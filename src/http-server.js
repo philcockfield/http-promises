@@ -71,6 +71,7 @@ const getApi = (headers = {}) => {
      */
     header(key, value) {
       if (R.isNil(key)) { throw new Error(`A key for the header is required.`); }
+      if (R.isNil(value)) { throw new Error(`A value for the '${ key }' header is required.`); }
       const result = getApi(headers);
       result.headers[key] = value;
       return result;
