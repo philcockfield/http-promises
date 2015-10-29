@@ -1,4 +1,4 @@
-import _ from "lodash";
+import R from "ramda";
 import nodeUrl from "url";
 import nodeHttp from "http";
 import nodeHttps from "https";
@@ -7,12 +7,11 @@ import { HttpError, HttpParseError } from "./errors";
 import { handleRequestComplete } from "./shared";
 
 
-const send = (verb, url, data) => {
+const send = (verb, url, data, headers = {}) => {
   return new Promise((resolve, reject) => {
       // Prepare the data to send.
-      const hasData = !_.isUndefined(data);
-      let headers = {};
-      if (_.isObject(data)) {
+      const hasData = data !== undefined;
+      if (R.is(Object, data)) {
         data = JSON.stringify(data);
         headers["Content-Type"] = "application/json;charset=UTF-8";
       }
@@ -53,59 +52,82 @@ const send = (verb, url, data) => {
 };
 
 
+/**
+ * Creates a new API object.
+ */
+const getApi = (headers = {}) => {
+  headers = R.clone(headers);
+  return {
+    HttpError: HttpError,
+    HttpParseError: HttpParseError,
+    headers,
 
 
-const api = {
-  HttpError: HttpError,
-  HttpParseError: HttpParseError,
+    /**
+     * Adds the given key:value pair as a header.
+     * @param {string} key:   The name of the header.
+     * @param {string} value: The value of the header.
+     * @return a new API object with the added header (chainable).
+     */
+    header(key, value) {
+      if (R.isNil(key)) { throw new Error(`A key for the header is required.`); }
+      const result = getApi(headers);
+      result.headers[key] = value;
+      return result;
+    },
 
 
-  /**
-  * Perform a GET operation against the given URL.
-  * @param url: URL of the resource.
-  * @return promise.
-  */
-  get(url) { return send("GET", url); },
-
-  /**
-  * Performs a POST operation against the given URL.
-  *
-  *   In REST/Resource-Oriented systems the POST verb
-  *   means "create a new resource".
-  *
-  * @param url:   URL of the resource.
-  * @param data:  The data to send (a primitive value or an object,
-  *               will be transformed and sent as JSON).
-  * @return promise.
-  */
-  post(url, data) { return send("POST", url, data); },
+    /**
+    * Perform a GET operation against the given URL.
+    * @param url: URL of the resource.
+    * @return promise.
+    */
+    get(url) { return send("GET", url, undefined, headers); },
 
 
-  /**
-  * Performs a PUT operation against the given URL.
-  *
-  *   In REST/Resource-Oriented systems the PUT verb
-  *   means "update a resource".
-  *
-  * @param url:   URL of the resource.
-  * @param data:  The data to send (a primitive value or an object,
-  *               will be transformed and sent as JSON).
-  * @return promise.
-  */
-  put(url, data) { return send("PUT", url, data); },
+    /**
+    * Performs a POST operation against the given URL.
+    *
+    *   In REST/Resource-Oriented systems the POST verb
+    *   means "create a new resource".
+    *
+    * @param url:   URL of the resource.
+    * @param data:  The data to send (a primitive value or an object,
+    *               will be transformed and sent as JSON).
+    * @return promise.
+    */
+    post(url, data) { return send("POST", url, data, headers); },
 
 
-  /**
-  * Performs a DELETE operation against the given URL.
-  *
-  *   In REST/Resource-Oriented systems the DELETE verb
-  *   means "remove the resource".
-  *
-  * @param url:   URL of the resource.
-  * @return promise.
-  */
-  delete(url) { return send("DELETE", url); }
+    /**
+    * Performs a PUT operation against the given URL.
+    *
+    *   In REST/Resource-Oriented systems the PUT verb
+    *   means "update a resource".
+    *
+    * @param url:   URL of the resource.
+    * @param data:  The data to send (a primitive value or an object,
+    *               will be transformed and sent as JSON).
+    * @return promise.
+    */
+    put(url, data) { return send("PUT", url, data, headers); },
+
+
+    /**
+    * Performs a DELETE operation against the given URL.
+    *
+    *   In REST/Resource-Oriented systems the DELETE verb
+    *   means "remove the resource".
+    *
+    * @param url:   URL of the resource.
+    * @return promise.
+    */
+    delete(url) { return send("DELETE", url, undefined, headers); }
+  };
 };
 
 
+
+
+const api = getApi();
 export default api;

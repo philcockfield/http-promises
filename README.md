@@ -30,6 +30,23 @@ http.put(URL, { foo: 123 })
 
 ```
 
+#### Headers
+Add headers by calling the chainable `header(key, value)` method:
+```js
+
+http
+  .header("Context-Type", "application/json")
+  .header("My-Header", 1234)
+  .get("/endpoint")
+  .then( ... )
+
+```
+
+Adding headers in this way is immutable with each call to `header` returning a fresh API.  To root `http` API is uneffected.
+
+
+
+#### Browser (Client)
 Using it within the browser is exactly the same as the server, just require `"http-promises/browser"`
 
 ```js
@@ -40,6 +57,8 @@ http.get("/foo")
   .catch((err) => { throw err; });
 
 ```
+
+
 
 
 ## Test

@@ -135,4 +135,85 @@ describe("Http (Server)", () => {
       });
     });
   });
+
+
+
+  describe("Headers", function() {
+    describe("adding headers", function() {
+      it("throws if a header key was not specified", () => {
+        expect(() => http.header(null, "foo")).to.throw();
+      });
+
+      it("adds a header", () => {
+        const result = http.header("foo", "my-header");
+        expect(result.headers["foo"]).to.eql("my-header");
+      });
+
+      it("does not effect the headers object of the root API", () => {
+        const result = http.header("foo", "my-value");
+        expect(http.headers["foo"]).to.eql(undefined);
+      });
+
+      it("adds a header recursively (chained)", () => {
+        const result = http
+                        .header("foo", 1)
+                        .header("bar", 2);
+        expect(result.headers["foo"]).to.eql(1);
+        expect(result.headers["bar"]).to.eql(2);
+      });
+    });
+
+
+    describe("calling REST verbs with headers", function() {
+      let headers;
+      const stubVerb = (verb) => {
+        nock("http://domain.com")[verb]("/user")
+        .reply(200, function (uri, body) {
+            headers = this.req.headers;
+        });
+      };
+      beforeEach(() => { headers = undefined });
+
+      it("GET", (done) => {
+        stubVerb("get")
+        http.header("get-key", "my-get")
+        .get("http://domain.com/user")
+        .then((result) => {
+            expect(headers["get-key"]).to.equal("my-get");
+            done();
+        });
+      });
+
+      it("POST", (done) => {
+        stubVerb("post")
+        http.header("post-key", "my-post")
+        .post("http://domain.com/user", { data: 123 })
+        .then((result) => {
+            expect(headers["post-key"]).to.equal("my-post");
+            done();
+        });
+      });
+
+      it("PUT", (done) => {
+        stubVerb("put")
+        http.header("put-key", "my-put")
+        .put("http://domain.com/user", { data: 123 })
+        .then((result) => {
+            expect(headers["put-key"]).to.equal("my-put");
+            done();
+        });
+      });
+
+      it("DELETE", (done) => {
+        stubVerb("delete")
+        http.header("delete-key", "my-delete")
+        .delete("http://domain.com/user")
+        .then((result) => {
+            expect(headers["delete-key"]).to.equal("my-delete");
+            done();
+        });
+      });
+    });
+  });
+
 });
