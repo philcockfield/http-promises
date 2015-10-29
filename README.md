@@ -14,7 +14,7 @@ Consistent HTTP request API on both server and browser using promises.
 
 
 ## Usage
-On the server:
+#### Server
 
 ```js
 import http from "http-promises/server";
