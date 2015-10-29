@@ -70,8 +70,8 @@ const getApi = (headers = {}) => {
      * @return a new API object with the added header (chainable).
      */
     header(key, value) {
-      if (R.isNil(key)) { throw new Error(`A key for the header is required.`); }
-      if (R.isNil(value)) { throw new Error(`A value for the '${ key }' header is required.`); }
+      if (R.isNil(key)) { throw new Error(`A key for the HTTP header is required.`); }
+      if (R.isNil(value)) { throw new Error(`A value for the '${ key }' HTTP header is required.`); }
       const result = getApi(headers);
       result.headers[key] = value;
       return result;
