@@ -11,6 +11,7 @@ Consistent HTTP request API on both server and browser using promises.
 - `http.post(url, { payload })`
 - `http.put(url, { payload })`
 - `http.delete(url)`
+- `http.header(key, value)`
 
 
 ## Usage
