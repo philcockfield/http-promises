@@ -51,6 +51,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
             expect(result).to.equal(null);
             done();
         });
+        fakeXhr.responseText = null;
         fakeXhr.status = 200;
         fakeXhr.readyState = 4;
         fakeXhr.onreadystatechange();
