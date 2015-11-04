@@ -36,7 +36,7 @@ const send = (verb, url, data, headers = {}) => {
             res.setEncoding("utf8");
             res.on("data", (data) => { responseText += data; });
             res.on("end", () => {
-              handleRequestComplete(res.statusCode, res.statusMessage, responseText, resolve, reject);
+              handleRequestComplete(res.statusCode, res.statusMessage, responseText, res.headers, resolve, reject);
             });
       });
 

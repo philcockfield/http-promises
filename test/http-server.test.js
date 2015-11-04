@@ -39,8 +39,9 @@ describe("Http (Server)", () => {
     it("resolves a promise with a [String] response", (done) => {
       stubGET("/user", 200, "hello");
       http.get("http://domain.com/user")
-      .then((result) => {
-        expect(result).to.equal("hello");
+      .then(result => {
+        expect(result.data).to.equal("hello");
+        expect(result.headers).to.eql({});
         done();
       });
     });
@@ -49,8 +50,8 @@ describe("Http (Server)", () => {
     it("resolves a promise with a [Number] response", (done) => {
       stubGET("/user", 200, 123);
       http.get("http://domain.com/user")
-      .then((result) => {
-        expect(result).to.equal(123);
+      .then(result => {
+        expect(result.data).to.equal(123);
         done();
       });
     });
@@ -58,8 +59,8 @@ describe("Http (Server)", () => {
     it("resolves a promise with a [Boolean] response", (done) => {
       stubGET("/user", 200, true);
       http.get("http://domain.com/user")
-      .then((result) => {
-        expect(result).to.equal(true);
+      .then(result => {
+        expect(result.data).to.equal(true);
         done();
       });
     });
@@ -68,8 +69,8 @@ describe("Http (Server)", () => {
     it("resolves a promise with an [Object] response (JSON)", (done) => {
       stubGET("/user", 200, { name:"phil" });
       http.get("http://domain.com/user")
-      .then((result) => {
-        expect(result).to.eql({ name:"phil" });
+      .then(result => {
+        expect(result.data).to.eql({ name:"phil" });
         done();
       });
     });
@@ -77,8 +78,8 @@ describe("Http (Server)", () => {
     it("resolves a promise with an [Array] response (JSON)", (done) => {
       stubGET("/user", 200, [1, 2, 3]);
       http.get("http://domain.com/user")
-      .then((result) => {
-        expect(result).to.eql([1, 2, 3]);
+      .then(result => {
+        expect(result.data).to.eql([1, 2, 3]);
         done();
       });
     });
@@ -111,8 +112,8 @@ describe("Http (Server)", () => {
     it("sends POSTs", (done) => {
       stubPOST("/user", 200, { result:true })
       http.post("http://domain.com/user", 999)
-      .then((result) => {
-        expect(result).to.eql({ result:true });
+      .then(result => {
+        expect(result.data).to.eql({ result:true });
         done();
       });
     });
@@ -120,8 +121,8 @@ describe("Http (Server)", () => {
     it("sends PUTs", (done) => {
       stubPUT("/user", 200, { result:true })
       http.put("http://domain.com/user", 999)
-      .then((result) => {
-        expect(result).to.eql({ result:true });
+      .then(result => {
+        expect(result.data).to.eql({ result:true });
         done();
       });
     });
@@ -129,8 +130,8 @@ describe("Http (Server)", () => {
     it("sends DELETEs", (done) => {
       stubDELETE("/user", 200, { result:true })
       http.delete("http://domain.com/user", 999)
-      .then((result) => {
-        expect(result).to.eql({ result:true });
+      .then(result => {
+        expect(result.data).to.eql({ result:true });
         done();
       });
     });
@@ -175,6 +176,8 @@ describe("Http (Server)", () => {
         nock("http://domain.com")[verb]("/user")
         .reply(200, function (uri, body) {
             headers = this.req.headers;
+        }, {
+          "x-my-header": "My Value"
         });
       };
       beforeEach(() => { headers = undefined });
@@ -183,7 +186,8 @@ describe("Http (Server)", () => {
         stubVerb("get")
         http.header("get-key", "my-get")
         .get("http://domain.com/user")
-        .then((result) => {
+        .then(result => {
+            expect(result.headers["x-my-header"]).to.equal("My Value");
             expect(headers["get-key"]).to.equal("my-get");
             done();
         });
@@ -193,7 +197,8 @@ describe("Http (Server)", () => {
         stubVerb("post")
         http.header("post-key", "my-post")
         .post("http://domain.com/user", { data: 123 })
-        .then((result) => {
+        .then(result => {
+            expect(result.headers["x-my-header"]).to.equal("My Value");
             expect(headers["post-key"]).to.equal("my-post");
             done();
         });
@@ -203,7 +208,8 @@ describe("Http (Server)", () => {
         stubVerb("put")
         http.header("put-key", "my-put")
         .put("http://domain.com/user", { data: 123 })
-        .then((result) => {
+        .then(result => {
+            expect(result.headers["x-my-header"]).to.equal("My Value");
             expect(headers["put-key"]).to.equal("my-put");
             done();
         });
@@ -213,7 +219,8 @@ describe("Http (Server)", () => {
         stubVerb("delete")
         http.header("delete-key", "my-delete")
         .delete("http://domain.com/user")
-        .then((result) => {
+        .then(result => {
+            expect(result.headers["x-my-header"]).to.equal("My Value");
             expect(headers["delete-key"]).to.equal("my-delete");
             done();
         });

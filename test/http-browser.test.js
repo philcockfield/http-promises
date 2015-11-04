@@ -35,7 +35,8 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it("resolves promise with `responseText` (string)", (done) => {
         http.get("/foo").then((result) => {
-            expect(result).to.equal("my-get");
+            expect(result.data).to.equal("my-get");
+            expect(result.headers).to.eql({});
             done();
         });
         fakeXhr.responseText = "my-get";
@@ -47,8 +48,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it("resolves promise with `undefined`", (done) => {
         http.get("/foo").then((result) => {
-
-            expect(result).to.equal(null);
+            expect(result.data).to.equal(null);
             done();
         });
         fakeXhr.responseText = null;
@@ -60,7 +60,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it("resolves promise with `null`", (done) => {
         http.get("/foo").then((result) => {
-            expect(result).to.equal(null);
+            expect(result.data).to.equal(null);
             done();
         });
         fakeXhr.responseText = null;
@@ -88,7 +88,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
     describe("json", (done) => {
       it("resolves promise with JSON object", (done) => {
         http.get("/foo").then((result) => {
-            expect(result).to.eql({ foo:123 });
+            expect(result.data).to.eql({ foo:123 });
             done();
         });
         fakeXhr.responseText = JSON.stringify({ foo:123 });
@@ -100,7 +100,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it("resolves promise with JSON array", (done) => {
         http.get("/foo").then((result) => {
-            expect(result).to.eql([1, 2, 3]);
+            expect(result.data).to.eql([1, 2, 3]);
             done();
         });
         fakeXhr.responseText = JSON.stringify([1, 2, 3]);
@@ -152,7 +152,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("resolves promise with `responseText` (string)", (done) => {
       http.post("/foo", { foo:123 }).then((result) => {
-          expect(result).to.equal("my-post");
+          expect(result.data).to.equal("my-post");
           done();
       });
       fakeXhr.responseText = "my-post";
@@ -164,7 +164,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("resolves promise with JSON", (done) => {
       http.post("/foo").then((result) => {
-          expect(result).to.eql({ foo:123 });
+          expect(result.data).to.eql({ foo:123 });
           done();
       });
       fakeXhr.responseText = JSON.stringify({ foo:123 });
@@ -213,7 +213,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("resolves promise with `responseText` (string)", (done) => {
       http.put("/foo", { foo:123 }).then((result) => {
-          expect(result).to.equal("my-post");
+          expect(result.data).to.equal("my-post");
           done();
       });
       fakeXhr.responseText = "my-post";
@@ -225,7 +225,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("resolves promise with JSON", (done) => {
       http.put("/foo").then((result) => {
-          expect(result).to.eql({ foo:123 });
+          expect(result.data).to.eql({ foo:123 });
           done();
       });
       fakeXhr.responseText = JSON.stringify({ foo:123 });
@@ -259,7 +259,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("resolves promise with JSON", (done) => {
       http.delete("/foo").then((result) => {
-          expect(result).to.eql({ isDeleted:true });
+          expect(result.data).to.eql({ isDeleted:true });
           done();
       });
       fakeXhr.responseText = JSON.stringify({ isDeleted:true });

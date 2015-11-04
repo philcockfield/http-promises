@@ -16,7 +16,8 @@ const send = (verb, url, data) => {
       }
       xhr.onreadystatechange = () => {
           if (xhr.readyState === 4) {
-            handleRequestComplete(xhr.status, xhr.statusText, xhr.responseText, resolve, reject);
+            const responseHeaders = {}; // Not passed from browser (for the time being).
+            handleRequestComplete(xhr.status, xhr.statusText, xhr.responseText, responseHeaders, resolve, reject);
           }
       };
       xhr.send(data);

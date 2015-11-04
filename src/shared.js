@@ -24,10 +24,11 @@ export const isJson = (text) => {
  * @param {integer} status: The HTTP status code.
  * @param {string} responseText: The raw text returned within the response.
  * @param {string} statusText: The text describing the status
+ * @param {object} responseHeaders: An object containing the reponse headers.
  * @param {function} resolve: The Promise"s success callback.
  * @param {function} reject: The promise"s error callback.
  */
-export const handleRequestComplete = (status, statusText, responseText, resolve, reject) => {
+export const handleRequestComplete = (status, statusText, responseText, responseHeaders, resolve, reject) => {
     if (status !== 200) {
       // Failed.
       reject(new HttpError(status, responseText, statusText));
@@ -49,6 +50,6 @@ export const handleRequestComplete = (status, statusText, responseText, resolve,
       } else if(util.isNumeric(response)) {
         response = parseFloat(response);
       }
-      resolve(response);
+      resolve({ data: response, headers: responseHeaders });
     }
 };
