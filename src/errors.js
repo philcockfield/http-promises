@@ -1,4 +1,4 @@
-import R from "ramda";
+import R from 'ramda';
 
 
 /**
@@ -7,7 +7,7 @@ import R from "ramda";
 export class HttpError extends Error {
   constructor(status, message, statusText) {
     super();
-    if (R.isNil(message) || R.isEmpty(message)) { message = "Failed while making Http request."; }
+    if (R.isNil(message) || R.isEmpty(message)) { message = 'Failed while making Http request.'; }
     this.status = status || 500;
     this.message = message;
     this.statusText = statusText;

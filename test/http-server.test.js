@@ -88,17 +88,17 @@ describe("Http (Server)", () => {
     it("throws an [HttpError] when status code is not 200", (done) => {
       stubGET("/user", 404, "Failed while making Http request.");
       http.get("http://domain.com/user")
-      .catch(HttpError, (err) => {
-          expect(err.message).to.equal("Failed while making Http request.");
-          expect(err.status).to.equal(404);
-          done()
-      });
+      .catch(err => {
+        expect(err.message).to.equal("Failed while making Http request.");
+        expect(err.status).to.equal(404);
+        done();
+      });;
     });
 
     it("throws if the response cannot be parsed as JSON", (done) => {
       stubGET("/user", 200, "{not-json}");
       http.get("http://domain.com/user")
-      .catch(HttpParseError, (err) => {
+      .catch(err => {
           expect(err.message).to.equal(`Failed to parse: "{not-json}"`);
           expect(err.responseText).to.equal("{not-json}");
           expect(err.parseError.message).to.equal("Unexpected token n");

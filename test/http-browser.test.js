@@ -34,7 +34,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
       it("resolves promise with `responseText` (string)", (done) => {
-        http.get("/foo").then((result) => {
+        http.get("/foo").then(result => {
             expect(result.data).to.equal("my-get");
             expect(result.headers).to.eql({});
             done();
@@ -47,7 +47,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
       it("resolves promise with `undefined`", (done) => {
-        http.get("/foo").then((result) => {
+        http.get("/foo").then(result => {
             expect(result.data).to.equal(null);
             done();
         });
@@ -59,7 +59,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
       it("resolves promise with `null`", (done) => {
-        http.get("/foo").then((result) => {
+        http.get("/foo").then(result => {
             expect(result.data).to.equal(null);
             done();
         });
@@ -73,7 +73,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it("throws an [HttpError] when status code is not 200", (done) => {
         http.get("/foo")
-        .catch(HttpError, (err) => {
+        .catch(err => {
             expect(err.message).to.equal("Failed while making Http request.");
             expect(err.status).to.equal(500);
             done()
@@ -87,7 +87,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     describe("json", (done) => {
       it("resolves promise with JSON object", (done) => {
-        http.get("/foo").then((result) => {
+        http.get("/foo").then(result => {
             expect(result.data).to.eql({ foo:123 });
             done();
         });
@@ -99,7 +99,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
       it("resolves promise with JSON array", (done) => {
-        http.get("/foo").then((result) => {
+        http.get("/foo").then(result => {
             expect(result.data).to.eql([1, 2, 3]);
             done();
         });
@@ -112,7 +112,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
       it("throws if the response cannot be parsed as JSON", (done) => {
         http.get("/foo")
-        .catch(HttpParseError, (err) => {
+        .catch(err => {
             expect(err.message).to.equal(`Failed to parse: "{not-json}"`);
             expect(err.responseText).to.equal("{not-json}");
             expect(err.parseError.message).to.equal("Unexpected token n");
@@ -151,7 +151,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
     it("resolves promise with `responseText` (string)", (done) => {
-      http.post("/foo", { foo:123 }).then((result) => {
+      http.post("/foo", { foo:123 }).then(result => {
           expect(result.data).to.equal("my-post");
           done();
       });
@@ -163,7 +163,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
     it("resolves promise with JSON", (done) => {
-      http.post("/foo").then((result) => {
+      http.post("/foo").then(result => {
           expect(result.data).to.eql({ foo:123 });
           done();
       });
@@ -176,7 +176,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("throws an [HttpError] when status code is not 200", (done) => {
       http.post("/foo")
-      .catch(HttpError, (err) => {
+      .catch(err => {
           expect(err.message).to.equal("Failed while making Http request.");
           expect(err.status).to.equal(500);
           done()
@@ -212,7 +212,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
     it("resolves promise with `responseText` (string)", (done) => {
-      http.put("/foo", { foo:123 }).then((result) => {
+      http.put("/foo", { foo:123 }).then(result => {
           expect(result.data).to.equal("my-post");
           done();
       });
@@ -224,7 +224,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
     it("resolves promise with JSON", (done) => {
-      http.put("/foo").then((result) => {
+      http.put("/foo").then(result => {
           expect(result.data).to.eql({ foo:123 });
           done();
       });
@@ -237,7 +237,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("throws an [HttpError] when status code is not 200", (done) => {
       http.put("/foo")
-      .catch(HttpError, (err) => {
+      .catch(err => {
           expect(err.message).to.equal("Failed while making Http request.");
           expect(err.status).to.equal(500);
           done()
@@ -258,7 +258,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
 
     it("resolves promise with JSON", (done) => {
-      http.delete("/foo").then((result) => {
+      http.delete("/foo").then(result => {
           expect(result.data).to.eql({ isDeleted:true });
           done();
       });
@@ -271,7 +271,7 @@ describe("Http (Browser/XmlHttpRequest)", () => {
 
     it("throws an [HttpError] when status code is not 200", (done) => {
       http.delete("/foo")
-      .catch(HttpError, (err) => {
+      .catch(err => {
           expect(err.message).to.equal("Failed while making Http request.");
           expect(err.status).to.equal(500);
           done()
