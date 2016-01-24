@@ -22,7 +22,7 @@ export class HttpError extends Error {
 export class HttpParseError extends Error {
   constructor(responseText, parseError) {
     super();
-    this.message = `Failed to parse: '${ responseText }'`;
+    this.message = `Failed to parse: "${ responseText }"`;
     this.responseText = responseText;
     this.parseError = parseError;
   }
