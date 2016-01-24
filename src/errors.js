@@ -1,4 +1,4 @@
-import R from "ramda";
+import R from 'ramda';
 
 
 /**
@@ -7,7 +7,7 @@ import R from "ramda";
 export class HttpError extends Error {
   constructor(status, message, statusText) {
     super();
-    if (R.isNil(message) || R.isEmpty(message)) { message = "Failed while making Http request."; }
+    if (R.isNil(message) || R.isEmpty(message)) { message = 'Failed while making Http request.'; }
     this.status = status || 500;
     this.message = message;
     this.statusText = statusText;
@@ -22,7 +22,7 @@ export class HttpError extends Error {
 export class HttpParseError extends Error {
   constructor(responseText, parseError) {
     super();
-    this.message = `Failed to parse: "${ responseText }"`;
+    this.message = `Failed to parse: '${ responseText }'`;
     this.responseText = responseText;
     this.parseError = parseError;
   }
