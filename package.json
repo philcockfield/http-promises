@@ -17,8 +17,8 @@
     "ramda": "^0.19.1"
   },
   "devDependencies": {
-    "js-babel": "^1.0.1",
-    "js-babel-dev": "^1.1.2",
+    "js-babel": "^6.0.0",
+    "js-babel-dev": "^6.0.0",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
     "nock": "^5.2.1",
