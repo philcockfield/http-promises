@@ -1,6 +1,6 @@
 {
   "name": "http-promises",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Consistent HTTP request API on both server and browser using promises.",
   "main": "./server.js",
   "scripts": {
